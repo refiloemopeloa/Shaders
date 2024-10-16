@@ -1,0 +1,1 @@
+This guide will focus solely on implementing and using shaders for WebGL using JavaScript. For a more comprehensive guide of what shaders are, how to create them, and using them for OpenGL in C, refer to this document: [A Guide to Shaders](https://github.com/refiloemopeloa/Shaders/blob/main/A%20Guide%20to%20Shaders.md)

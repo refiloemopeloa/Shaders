@@ -312,7 +312,7 @@ Once that is done, you can add the following code to each of the files:
 
 In `main.c`:
 
-You can find the code here: <a href="https://github.com/refiloemopeloa/OpenGL/blob/main/Shaders/C/shader-cube/cube.c">main.c</a>
+You can find the code here: <a href="https://github.com/refiloemopeloa/Shaders/blob/main/C/shader-cube/cube.c">main.c</a>
 
 In `vertex.glsl`:
 
