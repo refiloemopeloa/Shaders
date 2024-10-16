@@ -1,0 +1,3 @@
+/mnt/c/Users/matth/Desktop/git repos/OpenGL/Shaders/C/shader-cube/cmake-build-debug/CMakeFiles/cube.dir
+/mnt/c/Users/matth/Desktop/git repos/OpenGL/Shaders/C/shader-cube/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/c/Users/matth/Desktop/git repos/OpenGL/Shaders/C/shader-cube/cmake-build-debug/CMakeFiles/rebuild_cache.dir
