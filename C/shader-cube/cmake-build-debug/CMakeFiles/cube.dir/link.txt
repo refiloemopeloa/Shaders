@@ -1,1 +1,0 @@
-/usr/bin/gcc -g CMakeFiles/cube.dir/cube.c.o -o cube  -lGL -lglut -lGLU -lm -lGLEW 
