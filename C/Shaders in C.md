@@ -23,8 +23,6 @@ From here there are two methods you can follow:
 
 #### Internal shaders
 
-Internal shaders is when you type your shaders directly in your program, similar to internal CSS. This reduces the complexity of loading your shaders, but also makes it harder to read. You also lose the support of any support from your IDE if you're using one, since it views it as a string, not actual code.
-
 Let's look at an example:
 
 ```C
@@ -44,7 +42,7 @@ const char *vertex_shader_source =
 
 #### External shaders
 
-External shaders is when you write your shaders in a different file to your program. Shader files don't really have extensions, so you can use whatever you'd like. However, as good practice, you can give your shader files the extension `.glsl`. If you'd like to be more specific, you can add the type of shader to the extension, like `.vertex.glsl`. Here's an example:
+Here's an example:
 
 ```C
 //file: vertex_shader.glsl
