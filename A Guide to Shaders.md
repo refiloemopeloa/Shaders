@@ -2,24 +2,27 @@
 
 ## What is a Shader?
 
-A shader is just a program that runs on your GPU instead of your CPU. Shaders allow us to customize the visual output of a graphics application. 
+A shader is just a program that runs on your GPU instead of your CPU. Shaders allow us to customize the visual output of a graphics application.
 
 There are many languages to write shaders in, but for this guide, we will be using the OpenGL Shader Language for Embedded Systems, version 1.0, or GLSL ES 1.0.
 
 Before we get into programming, let us lay a bit of theory on the table.
 
 There are many kinds of shaders, but for now, we'll focus on two. The **vertex** shader and the **fragment** shader.
+
 ### Vertex shader
 
 The vertex shader is the first programmable stage in the graphics pipeline. This is because it processes each vertex of the geometry, and it does so individually. Its main responsibilities include:
-* Transforming vertex coordinates from model space to screen space.
-* Passing per-vertex data like colour, texture coordinates, and normals to the next stage in the pipeline.
+
+-   Transforming vertex coordinates from model space to screen space.
+-   Passing per-vertex data like colour, texture coordinates, and normals to the next stage in the pipeline.
 
 ### Fragment shader
 
 The fragment shader operates on each fragment that will potentially form part of the final pixel colour in the rendered image. It is also called the pixel shader. It is responsible for:
-* Setting the colour of pixels based on various inputs, including data passed from the vertex shader
-* Performing complex computations to create effects like texturing, shading, and lighting.
+
+-   Setting the colour of pixels based on various inputs, including data passed from the vertex shader
+-   Performing complex computations to create effects like texturing, shading, and lighting.
 
 Here is a picture to encapsulate this pipeline:
 
@@ -65,12 +68,13 @@ varying vec3 v_color;
 
 ## Creating a shader
 
-Now that we've gotten some theory out of the way, we can start getting into the fun part. Creating a shader involves declaring your shaders, compiling them, linking them to your program, and attaching them to the OpenGL context for rendering. 
+Now that we've gotten some theory out of the way, we can start getting into the fun part. Creating a shader involves declaring your shaders, compiling them, linking them to your program, and attaching them to the OpenGL context for rendering.
 
 Because of how widely used OpenGL is, it is available on different languages. This means that while the process of loading shaders is the same, the syntax and procedures , may be different. For this guide, we'll focus on doing it with C. This method will work on C++ as well. For other languages, such as JavaScript using WebGL, refer to this guide: [[Shaders in WebGL]].
+
 ### Declaring a shader
 
-Before we begin, ensure you've imported `GL/glut.h`. 
+Before we begin, ensure you've imported `GL/glut.h`.
 
 First, we need a variable to point to the code of our shader:
 
@@ -83,12 +87,12 @@ From here there are two methods you can follow:
 
 #### Internal shaders
 
-Internal shaders is when you type your shaders directly in your program, similar to internal CSS. This reduces the complexity of loading your shaders, but also makes it harder to read. You also lose the support of any support from your IDE if you're using one, since it views it as a string, not actual code. 
+Internal shaders is when you type your shaders directly in your program, similar to internal CSS. This reduces the complexity of loading your shaders, but also makes it harder to read. You also lose the support of any support from your IDE if you're using one, since it views it as a string, not actual code.
 
 Let's look at an example:
 
 ```C
-const char *vertex_shader_source = 
+const char *vertex_shader_source =
 //Declare local variables
 "    attribute vec4 a_position;\n"
 "    attribute vec3 a_color;\n"
@@ -137,7 +141,7 @@ char* read_shader_source(const char* file_path) {
 
     }
 
-  
+
 
     // Seek to the end of file to determine its size
 
@@ -147,7 +151,7 @@ char* read_shader_source(const char* file_path) {
 
     fseek(file, 0, SEEK_SET);
 
-  
+
 
     // Allocate memory for the file content
 
@@ -163,7 +167,7 @@ char* read_shader_source(const char* file_path) {
 
     }
 
-  
+
 
     // Read the file content
 
@@ -181,7 +185,7 @@ char* read_shader_source(const char* file_path) {
 
     }
 
-  
+
 
     content[fileSize] = '\0';  // Null-terminate the string
 
@@ -213,7 +217,7 @@ GLuint compile_shader(GLenum type, const char *source)
 
     glCompileShader(shader);
 
-  
+
 
     int success;
 
@@ -317,29 +321,29 @@ You can find the code here: <a href="https://github.com/refiloemopeloa/Shaders/b
 In `vertex.glsl`:
 
 ```C
-#version 330 core  
-layout (location = 0) in vec3 aPos;  
-  
-uniform mat4 model;  
-  
-out vec3 FragPos;  
-  
-void main() {  
-    gl_Position = model * vec4(aPos, 2.0);  
-    FragPos = aPos;  
+#version 330 core
+layout (location = 0) in vec3 aPos;
+
+uniform mat4 model;
+
+out vec3 FragPos;
+
+void main() {
+    gl_Position = model * vec4(aPos, 2.0);
+    FragPos = aPos;
 }
 ```
 
 In `fragment.glsl`:
 
 ```C
-#version 330 core  
-out vec4 FragColor;  
-    
-void main() {  
-    vec3 color;  
+#version 330 core
+out vec4 FragColor;
+
+void main() {
+    vec3 color;
     color = vec3(1.0, 0.0, 1.0);
-    FragColor = vec4(color, 1.0);  
+    FragColor = vec4(color, 1.0);
 }
 ```
 
@@ -348,6 +352,7 @@ You should get something like this:
 <img src="assets/shader-cube.gif" style="background-color: white">
 
 You now have your cube with shaders determining the vertex positions and the color of the cube.
+
 # References
 
 1. [Chapter 10 The Programmable Pipeline | Computer Graphics and Visualisation (wits.ac.za)](https://courses.ms.wits.ac.za/~branden/CGV/_book/pipe.html)
