@@ -442,6 +442,162 @@ If this doesn't work, refer to [A Guide to WebGL](https://github.com/refiloemope
 If everything went as planned, you should see the following in your browser:
 
 ![shaders-webgl-square](assets/shader-webgl-square.png)
+
+This is all good and well but it's a bit boring. Let's spice it up by applying the colour to the vertexes rather than the shaders.
+
+## Coloring through vertex shader
+
+First, add the following to your `init-buffers.js` file:
+
+```js
+function initColorBuffer(gl) {
+  const colors = [
+    1.0,
+    1.0,
+    1.0,
+    1.0, // white
+    1.0,
+    0.0,
+    0.0,
+    1.0, // red
+    0.0,
+    1.0,
+    0.0,
+    1.0, // green
+    0.0,
+    0.0,
+    1.0,
+    1.0, // blue
+  ];
+
+  const colorBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+
+  return colorBuffer;
+}
+
+```
+
+Then, update your `vertexShader.glsl` file:
+
+```c
+attribute vec4 aVertexPosition;  
+attribute vec4 aVertexColor;  
+  
+uniform mat4 uModelViewMatrix;  
+uniform mat4 uProjectionMatrix;  
+  
+varying lowp vec4 vColor;  
+  
+void main(void) {  
+    gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;  
+    vColor = aVertexColor;  
+}
+```
+
+And update your `fragmentShader.glsl` file:
+
+```c
+varying lowp vec4 vColor;  
+  
+void main(void) {  
+    gl_FragColor = vColor;  
+}
+```
+
+Now, update your `programInfo` object in your `square.js` function:
+
+```c
+const programInfo = {  
+    program: shaderProgram,  
+    attribLocations: {  
+        vertexPosition: gl.getAttribLocation(shaderProgram, "aVertexPosition"),  
+        vertexColor: gl.getAttribLocation(shaderProgram, "aVertexColor"),  
+    },    uniformLocations: {  
+        projectionMatrix: gl.getUniformLocation(shaderProgram, "uProjectionMatrix"),  
+        modelViewMatrix: gl.getUniformLocation(shaderProgram, "uModelViewMatrix"),  
+    },};
+```
+
+Then, add the following function to your `draw-scene.js` file:
+
+```js
+// Tell WebGL how to pull out the colors from the color buffer
+// into the vertexColor attribute.
+function setColorAttribute(gl, buffers, programInfo) {
+  const numComponents = 4;
+  const type = gl.FLOAT;
+  const normalize = false;
+  const stride = 0;
+  const offset = 0;
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffers.color);
+  gl.vertexAttribPointer(
+    programInfo.attribLocations.vertexColor,
+    numComponents,
+    type,
+    normalize,
+    stride,
+    offset,
+  );
+  gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor);
+}
+```
+
+Now, call it in your `drawScene()` function, before the `gl.useProgram()` call.
+
+### What do you see?
+
+If everything went well, you should see the following:
+
+![vertex-shader-coloring](assets/vertex-shader-coloring.png)
+
+## Animating objects
+
+Our scene is still a bit boring. Let's make things more interesting by adding animation.
+
+First, add this to your `main.js` file:
+
+```js
+let squareRotation = 0.0;
+let deltaTime = 0;
+```
+
+Now, update the `draw-scene.js` file in your `drawScene` function, after the `mat4.translate`:
+
+```js
+mat4.rotate(
+  modelViewMatrix, // destination matrix
+  modelViewMatrix, // matrix to rotate
+  squareRotation, // amount to rotate in radians
+  [0, 0, 1],
+); // axis to rotate around
+```
+
+Finally, update your `main` function:
+
+```js
+let then = 0;
+
+// Draw the scene repeatedly
+function render(now) {
+  now *= 0.001; // convert to seconds
+  deltaTime = now - then;
+  then = now;
+
+  drawScene(gl, programInfo, buffers, squareRotation);
+  squareRotation += deltaTime;
+
+  requestAnimationFrame(render);
+}
+requestAnimationFrame(render);
+```
+
+
+You should see the following:
+
+![vertex-shader-rotation](assets/vertex-shader-rotation.gif)
+
 ## Cube Demo
 
 
