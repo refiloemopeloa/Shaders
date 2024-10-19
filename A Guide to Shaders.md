@@ -291,4 +291,5 @@ Finally, you call a function to use the shader program.
 1. [Chapter 10 The Programmable Pipeline | Computer Graphics and Visualisation (wits.ac.za)](https://courses.ms.wits.ac.za/~branden/CGV/_book/pipe.html)
 2. [glDrawArrays - OpenGL 4 Reference Pages (khronos.org)](https://registry.khronos.org/OpenGL-Refpages/gl4/html/glDrawArrays.xhtml)
 3. [Adding 2D content to a WebGL context - Web APIs | MDN (mozilla.org)](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Adding_2D_content_to_a_WebGL_context)
+3. [Built-in Variable (GLSL) - OpenGL Wiki](https://www.khronos.org/opengl/wiki/Built-in_Variable_(GLSL))
 4. [LearnOpenGL - Shaders](https://learnopengl.com/Getting-started/Shaders)
