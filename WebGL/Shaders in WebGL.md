@@ -174,6 +174,28 @@ const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
 
 ```
 
+## Passing data to shaders
+
+I recommend reading this section of a guide to shaders first: 
+
+Once you've created your shader program, you can pass data into it as follows:
+
+##### Attribute variables
+
+```js
+const attributeLocation = gl.getAttribLocation(shaderProgram, "attributeName");
+```
+
+This returns the location to the `attribute` variable if it is found, else returns a `-1`.
+
+##### Uniform variables
+
+```js
+const uniformLocation = gl.getAttribLocation(shaderProgram, "uniformName");
+```
+
+This returns the location to the `attribute` variable if it is found, else returns a `null`.
+
 ## Square demo
 ### Passing object data
 
@@ -605,3 +627,4 @@ You should see the following:
 
 1. [Chapter 10 The Programmable Pipeline | Computer Graphics and Visualisation (wits.ac.za)](https://courses.ms.wits.ac.za/~branden/CGV/_book/pipe.html#creating-a-shader)
 2. [Adding 2D content to a WebGL context - Web APIs | MDN (mozilla.org)](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Adding_2D_content_to_a_WebGL_context)
+3. 
