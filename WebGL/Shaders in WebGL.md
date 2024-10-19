@@ -2,43 +2,7 @@
 
 This guide will focus solely on implementing and using shaders for WebGL using JavaScript. For a more comprehensive guide of what shaders are, how to create them, and using them for OpenGL in C, refer to this document: [A Guide to Shaders](https://github.com/refiloemopeloa/Shaders/blob/main/A%20Guide%20to%20Shaders.md).
 
-Before we get started, please have a look at the following guide to get a basic understanding of how WebGL works and how to set up a WebGL project: [A Guide to WebGL](https://github.com/refiloemopeloa/WebGL/blob/main/A%20Guide%20to%20WebGL.md)
-
-## Data Structures
-
-Let's start with the data structures we can us in WebGL.
-### glMatrix
-
-`glMatrix` is a popular library for handling matrix and vector operations in WebGL. It is optimized for high performance in graphics computations.
-
-Here's an example:
-
-```js
-const projection = mat4.create();    // projection matrix
-const modelview = mat4.create();     // modelview matrix
-const modelviewProj = mat4.create(); // combined transformation matrix
-const normalMatrix = mat3.create(); // matrix, derived from modelview matrix, for transforming normal vectors
-
-mat4.multiply( modelviewProj, projection, modelview ); //Multiply the modelview and projection transforms to get the combined transform
-```
-
-### Vertex Buffer Object
-
-A vertex buffer object is basically block of memory that can hold the coordinates or other attributes for a set of vertices. You can read more on vertex buffer objects in [A Guide to Shaders](https://github.com/refiloemopeloa/Shaders/blob/main/A%20Guide%20to%20Shaders.md).
-
-Here's some code showing to enable and use VBOs:
-
-```js
-function drawPrimitive( primitiveType, color, vertices ) {
-     gl.enableVertexAttribArray(a_coords_loc);
-     gl.bindBuffer(gl.ARRAY_BUFFER,a_coords_buffer);
-     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STREAM_DRAW);
-     gl.uniform4fv(u_color, color);
-     gl.vertexAttribPointer(a_coords_loc, 3, gl.FLOAT, false, 0, 0);
-     gl.drawArrays(primitiveType, 0, vertices.length/3);
-}
-```
-
+Before we get started, please have a look at the following guide to get a basic understanding of how WebGL works and how to set up a WebGL project: [A Guide to WebGL](https://github.com/refiloemopeloa/WebGL/blob/main/A%20Guide%20to%20WebGL.md).
 ## Creating a shader
 
 In [A Guide to Shaders](https://github.com/refiloemopeloa/Shaders/blob/main/A%20Guide%20to%20Shaders.md), we go over the details of how to create a shader, but here we'll be very brief. There are four steps to creating a shader. Declaring, compiling, linking and attaching the shader to the WebGL context for rendering.
